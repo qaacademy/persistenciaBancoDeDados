@@ -18,12 +18,14 @@ public class DaoCenariosTest {
 	public static void main(String[] args) {
 		DaoCenariosTest daoCenarios = new DaoCenariosTest();
 		try {
-
-		daoCenarios.convertToJson();
+		String json = daoCenarios.loadData();
+		
+		daoCenarios.convertToJson(json);
+		
 		System.out.println(daoCenarios.getData("url"));
 				
-		daoCenarios.insertExecucaoTeste();
-		daoCenarios.finalizaExecucaoTeste();
+//		daoCenarios.insertExecucaoTeste();
+//		daoCenarios.finalizaExecucaoTeste();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -122,15 +124,14 @@ public class DaoCenariosTest {
 	
 	
 
-	public void convertToJson() throws SQLException {
+	public void convertToJson(String json) throws SQLException {
 
-		String json = loadData();
 		mapDadosTeste = new Gson().fromJson(json, Map.class);
 
 	}
 
-	public Object getData(String chave) {
-		return mapDadosTeste.get(chave);
+	public String getData(String chave) {
+		return (String) mapDadosTeste.get(chave);
 	}
 
 }
